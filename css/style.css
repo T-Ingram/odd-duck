@@ -1,0 +1,8 @@
+.image-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.product-image {
+  max-width: 20%;
+}

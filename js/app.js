@@ -38,18 +38,25 @@ const unicorn = new Image('Unicorn', './img/unicorn.jpg');
 const waterCan = new Image('Water-can', './img/water-can.jpg');
 const wineGlass = new Image('Wine-glass', './img/wine-glass.jpg');
 console.log(generatedImages);
-function getRandomImages() {
 
-  while (selectedImages.length < imagesToDisplay) {
-    // console.log('inside a while loop')
+let previousImages = [];
+
+function getRandomImages() {
+  let newImages = [];
+
+  while (newImages.length < imagesToDisplay) {
     const randomIndex = Math.floor(Math.random() * generatedImages.length);
     const randomImage = generatedImages[randomIndex];
 
-    if (!selectedImages.includes(randomImage)) {
-      selectedImages.push(randomImage);
+    // Check if the random image is not in the previous set or the new set
+    if (!previousImages.includes(randomImage) && !newImages.includes(randomImage)) {
+      newImages.push(randomImage);
       randomImage.timesShown++; // Increment timesShown when selected for display
     }
   }
+
+  previousImages = newImages.slice(); // Store the current set as previous for the next iteration
+  return newImages;
 }
 
 const resultsSection = document.getElementById('results');
@@ -65,17 +72,15 @@ function eventListenerFunction(event) {
 }
 
 function displayImages() {
-  getRandomImages();
+  const uniqueImages = getRandomImages();
   imageSection.innerHTML = '';
-  // imageSection.addEventListener('click', handleImageClick);
 
-  selectedImages.forEach(product => {
+  uniqueImages.forEach(product => {
     const imgElement = document.createElement('img');
     let path = product.path;
     imgElement.src = path;
     imgElement.alt = product.name;
     imgElement.classList.add('product-image');
-    // imgElement.addEventListener('click', handleImageClick);
     imageSection.appendChild(imgElement);
   });
 }

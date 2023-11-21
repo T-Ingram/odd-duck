@@ -2,19 +2,20 @@ body {
   background-color: #cae3f4;
 }
 header {
-  /* border: 1px solid red; */
+
   display: flex;
   justify-content: center;
   font-size: 5rem;
   font-style: italic;
   margin-top: 2rem;
   margin-bottom: 5rem;
+
+  background-color: aliceblue;
 }
 .image-container {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  /* border: 1px solid red; */
 }
 
 .product-image {
@@ -25,7 +26,6 @@ header {
 }
 
 #results {
- /* border: 1px solid red; */
   display: flex;
   justify-content: center;
   float: left;
@@ -63,4 +63,20 @@ button {
 
 button:hover {
   background-color: #5fabdd;
+}
+
+#directions {
+  display: flex;
+  justify-content: center ;
+  align-content: center;
+  font-size: 2rem;
+  height: 10rem;
+  width: 40%;
+  margin-top: 6rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  margin-left:30% ;
+  border-radius: 2rem;
+  background-color: aliceblue;
+  padding-top: 1rem;
 }

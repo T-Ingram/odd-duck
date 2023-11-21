@@ -57,7 +57,7 @@ function displayImages() {
   getRandomImages();
   const imageSection = document.getElementById('images');
   imageSection.innerHTML = '';
-  imageSection.addEventListener('click', handleImageClick);
+  // imageSection.addEventListener('click', handleImageClick);
 
   selectedImages.forEach(product => {
     const imgElement = document.createElement('img');
@@ -65,17 +65,24 @@ function displayImages() {
     imgElement.src = path;
     imgElement.alt = product.name;
     imgElement.classList.add('product-image');
-    imgElement.addEventListener('click', handleImageClick);
+    // imgElement.addEventListener('click', handleImageClick);
     imageSection.appendChild(imgElement);
+  });
+
+  imageSection.addEventListener('click', function(event) {
+    if (event.target.classList.contains('product-image')) {
+      handleImageClick(event);
+    }
+    event.stopPropagation();
   });
 }
 
 function handleImageClick(event) {
   event.preventDefault();
-  console.log('image was clicked', event);
+
   const targetName = event.target.alt;
   const foundObject = generatedImages.find(obj => obj.name === targetName);
-  console.log(selectedImages);
+  // console.log(selectedImages);
   console.log(generatedImages);
   console.log(foundObject);
 
@@ -92,12 +99,5 @@ function handleImageClick(event) {
   displayImages();
   console.log(foundObject.timesClicked);
 }
-
-// function disableClicks() {
-//   const images = document.querySelectorAll('.product-image'); //The problem lies here. Replace with image class name.
-//   images.forEach(image => {
-//       image.removeEventListener('click', handleImageClick);
-//   });
-// }
 
 displayImages();

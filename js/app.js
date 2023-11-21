@@ -18,25 +18,25 @@ class Image {
   }
 }
 
-const bag = new Image('bag', './img/bag.jpg');
-const banana = new Image('banana', './img/banana.jpg');
-const bathroom = new Image('bathroom', './img/bathroom.jpg');
-const boots = new Image('boots', './img/boots.jpg');
-const breakfast = new Image('breakfast', './img/breakfast.jpg');
-const bubblegum = new Image('bubblegum', './img/bubblegum.jpg');
-const chair = new Image('chair', './img/chair.jpg');
-const cthulhu = new Image('cthulhu', './img/cthulhu.jpg');
-const dogDuck = new Image('dog-duck', './img/dog-duck.jpg');
-const dragon = new Image('dragon', './img/dragon.jpg');
-const pen = new Image('pen', './img/pen.jpg');
-const petSweep = new Image('pet-sweep', './img/pet-sweep.jpg');
-const scissors = new Image('scissors', './img/scissors.jpg');
-const shark = new Image('shark', './img/shark.jpg');
-const sweep = new Image('sweep', './img/sweep.png');
-const tauntaun = new Image('tauntaun', './img/tauntaun.jpg');
-const unicorn = new Image('unicorn', './img/unicorn.jpg');
-const waterCan = new Image('water-can', './img/water-can.jpg');
-const wineGlass = new Image('wine-glass', './img/wine-glass.jpg');
+const bag = new Image('Bag', './img/bag.jpg');
+const banana = new Image('Banana', './img/banana.jpg');
+const bathroom = new Image('Bathroom', './img/bathroom.jpg');
+const boots = new Image('Boots', './img/boots.jpg');
+const breakfast = new Image('Breakfast', './img/breakfast.jpg');
+const bubblegum = new Image('Bubblegum', './img/bubblegum.jpg');
+const chair = new Image('Chair', './img/chair.jpg');
+const cthulhu = new Image('Cthulhu', './img/cthulhu.jpg');
+const dogDuck = new Image('Dog-duck', './img/dog-duck.jpg');
+const dragon = new Image('Dragon', './img/dragon.jpg');
+const pen = new Image('Pen', './img/pen.jpg');
+const petSweep = new Image('Pet-sweep', './img/pet-sweep.jpg');
+const scissors = new Image('Scissors', './img/scissors.jpg');
+const shark = new Image('Shark', './img/shark.jpg');
+const sweep = new Image('Sweep', './img/sweep.png');
+const tauntaun = new Image('Tauntaun', './img/tauntaun.jpg');
+const unicorn = new Image('Unicorn', './img/unicorn.jpg');
+const waterCan = new Image('Water-can', './img/water-can.jpg');
+const wineGlass = new Image('Wine-glass', './img/wine-glass.jpg');
 console.log(generatedImages);
 function getRandomImages() {
 
@@ -52,9 +52,20 @@ function getRandomImages() {
   }
 }
 
+const resultsSection = document.getElementById('results');
+const imageSection = document.getElementById('images');
+
+imageSection.addEventListener('click', eventListenerFunction)
+
+
+function eventListenerFunction(event) {
+  if (event.target.classList.contains('product-image')) {
+    handleImageClick(event);
+  }
+}
+
 function displayImages() {
   getRandomImages();
-  const imageSection = document.getElementById('images');
   imageSection.innerHTML = '';
   // imageSection.addEventListener('click', handleImageClick);
 
@@ -66,13 +77,6 @@ function displayImages() {
     imgElement.classList.add('product-image');
     // imgElement.addEventListener('click', handleImageClick);
     imageSection.appendChild(imgElement);
-  });
-
-  imageSection.addEventListener('click', function(event) {
-    if (event.target.classList.contains('product-image')) {
-      handleImageClick(event);
-    }
-    // event.stopPropagation();
   });
 }
 
@@ -90,13 +94,56 @@ function handleImageClick(event) {
       roundsDisplayed--; // Decreasing the click limit by 1
       console.log(`Remaining clicks: ${roundsDisplayed}`);
   } else {
-      console.log('Click limit reached. Further clicks disabled.');
-      // disableClicks();
+
+      disableClicks();
   }
-  
   selectedImages = [];
   displayImages();
   console.log(foundObject.timesClicked);
+}
+
+function disableClicks() {
+  console.log('Click limit reached. Further clicks disabled.');
+  imageSection.removeEventListener('click', eventListenerFunction);
+  viewResults();
+}
+
+function viewResults() {
+  const resultData = generatedImages.map(product => {
+    return {
+      name: product.name,
+      clicks: product.timesClicked,
+      views: product.timesShown
+    };
+  });
+
+  // Creating a list to display the results
+  const ulElement = document.createElement('ul');
+  resultData.forEach(product => {
+    const liElement = document.createElement('li');
+    liElement.textContent = `${product.name} had ${product.clicks} votes and was seen ${product.views} times.`;
+    ulElement.appendChild(liElement);
+  });
+
+  // Appending the list to the results section
+  resultsSection.appendChild(ulElement);
+}
+
+function disableClicks() {
+  console.log('Click limit reached. Further clicks disabled.');
+  imageSection.removeEventListener('click', eventListenerFunction);
+
+  // Create the "View Results" button
+  const viewResultsBtn = document.createElement('button');
+  viewResultsBtn.textContent = 'View Results';
+  viewResultsBtn.addEventListener('click', function() {
+    viewResults();
+    viewResultsBtn.style.display = 'none'; // Hide the button after displaying the results
+  });
+  
+  // Append the button to the results section
+  resultsSection.appendChild(viewResultsBtn);
+  resultsSection.appendChild(document.createElement('br')); // Adding a line break for spacing
 }
 
 displayImages();

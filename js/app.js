@@ -10,8 +10,7 @@ class Image {
   constructor(name, path) {
     // Arguments
     this.name = name;
-    this.path = path;
-    this.timesViewed = 0;
+    this.path = path;   
     this.timesClicked = 0;
     this.timesShown = 0;
     generatedImages.push(this);
@@ -73,7 +72,7 @@ function displayImages() {
     if (event.target.classList.contains('product-image')) {
       handleImageClick(event);
     }
-    event.stopPropagation();
+    // event.stopPropagation();
   });
 }
 

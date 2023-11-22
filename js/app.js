@@ -1,7 +1,7 @@
 //Global Variables
 let selectedImages = [];
 const imagesToDisplay = 3;
-let roundsDisplayed = 25;
+let roundsDisplayed = 2;
 generatedImages = [];
 
 class Image {
@@ -122,33 +122,57 @@ function viewResults() {
     };
   });
 
-  // Creating a list to display the results
-  const ulElement = document.createElement('ul');
-  resultData.forEach(product => {
-    const liElement = document.createElement('li');
-    liElement.textContent = `${product.name} had ${product.clicks} votes and was seen ${product.views} times.`;
-    ulElement.appendChild(liElement);
-  });
+  // Create separate arrays for product names, clicks, and views
+  const productNames = resultData.map(product => product.name);
+  const clicksData = resultData.map(product => product.clicks);
+  const viewsData = resultData.map(product => product.views);
 
-  // Appending the list to the results section
-  resultsSection.appendChild(ulElement);
+  const ctx = document.getElementById('canvas').getContext('2d');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productNames,
+      datasets: [
+        {
+          label: 'Clicks',
+          data: clicksData,
+          backgroundColor: 'rgba(255, 99, 132)', // Red color for clicks
+          borderColor: 'transparent',
+          borderWidth: 4
+        },
+        {
+          label: 'Views',
+          data: viewsData,
+          backgroundColor: 'rgba(54, 162, 235)', // Blue color for views
+          borderColor: 'transparent',
+          borderWidth: 4
+        }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
 }
 
 function disableClicks() {
   console.log('Click limit reached. Further clicks disabled.');
   imageSection.removeEventListener('click', eventListenerFunction);
 
-  // Create the "View Results" button
   const viewResultsBtn = document.createElement('button');
   viewResultsBtn.textContent = 'View Results';
   viewResultsBtn.addEventListener('click', function() {
     viewResults();
-    viewResultsBtn.style.display = 'none'; // Hide the button after displaying the results
+    viewResultsBtn.style.display = 'none'; 
   });
   
-  // Append the button to the results section
   resultsSection.appendChild(viewResultsBtn);
-  resultsSection.appendChild(document.createElement('br')); // Adding a line break for spacing
+  resultsSection.appendChild(document.createElement('br'));
 }
 
 displayImages();

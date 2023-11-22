@@ -48,14 +48,13 @@ function getRandomImages() {
     const randomIndex = Math.floor(Math.random() * generatedImages.length);
     const randomImage = generatedImages[randomIndex];
 
-    // Check if the random image is not in the previous set or the new set
     if (!previousImages.includes(randomImage) && !newImages.includes(randomImage)) {
       newImages.push(randomImage);
-      randomImage.timesShown++; // Increment timesShown when selected for display
+      randomImage.timesShown++; 
     }
   }
 
-  previousImages = newImages.slice(); // Store the current set as previous for the next iteration
+  previousImages = newImages.slice();
   return newImages;
 }
 
@@ -63,7 +62,6 @@ const resultsSection = document.getElementById('results');
 const imageSection = document.getElementById('images');
 
 imageSection.addEventListener('click', eventListenerFunction)
-
 
 function eventListenerFunction(event) {
   if (event.target.classList.contains('product-image')) {
@@ -122,7 +120,6 @@ function viewResults() {
     };
   });
 
-  // Create separate arrays for product names, clicks, and views
   const productNames = resultData.map(product => product.name);
   const clicksData = resultData.map(product => product.clicks);
   const viewsData = resultData.map(product => product.views);
@@ -137,14 +134,14 @@ function viewResults() {
         {
           label: 'Clicks',
           data: clicksData,
-          backgroundColor: 'rgba(255, 99, 132)', // Red color for clicks
+          backgroundColor: 'rgba(255, 99, 132)',
           borderColor: 'transparent',
           borderWidth: 4
         },
         {
           label: 'Views',
           data: viewsData,
-          backgroundColor: 'rgba(54, 162, 235)', // Blue color for views
+          backgroundColor: 'rgba(54, 162, 235)',
           borderColor: 'transparent',
           borderWidth: 4
         }

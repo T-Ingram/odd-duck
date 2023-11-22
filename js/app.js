@@ -1,7 +1,7 @@
 //Global Variables
 let selectedImages = [];
 const imagesToDisplay = 3;
-let roundsDisplayed = 2;
+let roundsDisplayed = 25;
 generatedImages = [];
 
 class Image {

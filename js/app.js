@@ -37,7 +37,7 @@ const tauntaun = new Image('Tauntaun', './img/tauntaun.jpg');
 const unicorn = new Image('Unicorn', './img/unicorn.jpg');
 const waterCan = new Image('Water-can', './img/water-can.jpg');
 const wineGlass = new Image('Wine-glass', './img/wine-glass.jpg');
-// console.log(generatedImages);
+console.log(generatedImages);
 
 let previousImages = [];
 
@@ -88,8 +88,8 @@ function handleImageClick(event) {
 
   const targetName = event.target.alt;
   const foundObject = generatedImages.find(obj => obj.name === targetName);
-  // console.log(selectedImages);
-  // console.log(generatedImages);
+  console.log(selectedImages);
+  console.log(generatedImages);
   console.log(foundObject);
 
   if (roundsDisplayed > 0) {

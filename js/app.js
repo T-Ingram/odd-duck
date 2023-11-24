@@ -4,8 +4,8 @@ const imagesToDisplay = 3;
 let roundsDisplayed = 25;
 generatedImages = [];
 
+//Constructor 
 class Image {
-
 
   constructor(name, path) {
     // Arguments
@@ -14,7 +14,6 @@ class Image {
     this.timesClicked = 0;
     this.timesShown = 0;
     generatedImages.push(this);
-
   }
 }
 
@@ -37,7 +36,6 @@ const tauntaun = new Image('Tauntaun', './img/tauntaun.jpg');
 const unicorn = new Image('Unicorn', './img/unicorn.jpg');
 const waterCan = new Image('Water-can', './img/water-can.jpg');
 const wineGlass = new Image('Wine-glass', './img/wine-glass.jpg');
-console.log(generatedImages);
 
 let previousImages = [];
 
@@ -88,9 +86,9 @@ function handleImageClick(event) {
 
   const targetName = event.target.alt;
   const foundObject = generatedImages.find(obj => obj.name === targetName);
-  console.log(selectedImages);
+  // console.log(selectedImages);
   console.log(generatedImages);
-  console.log(foundObject);
+  // console.log(foundObject);
 
   if (roundsDisplayed > 0) {
       foundObject.timesClicked++;
@@ -102,14 +100,14 @@ function handleImageClick(event) {
   }
   selectedImages = [];
   displayImages();
-  console.log(foundObject.timesClicked);
 }
 
-// // Function to save data to local storage
-// function saveToLocalStorage() {
-//   localStorage.setItem('generatedImages', JSON.stringify(generatedImages));
-//   console.log(generatedImages);
-// }
+// Function to save data to local storage
+function saveToLocalStorage() {
+  JSON.stringify(selectedImages)
+  localStorage.setItem('selectedImages', JSON.stringify(selectedImages));
+  console.log('code has gotten this far!');
+}
 
 function disableClicks() {
   console.log('Click limit reached. Further clicks disabled.');
@@ -117,19 +115,20 @@ function disableClicks() {
   viewResults();
 }
 
-// // Function to retrieve data from local storage
-// function retrieveFromLocalStorage() {
-//   const storedData = localStorage.getItem('generatedImages');
-//   if (storedData) {
-//     generatedImages = JSON.parse(storedData).map(item => new Image(item.name, item.path));
-//   }
-// }
+// Function to retrieve data from local storage
+function retrieveFromLocalStorage() {
+  const storedData = localStorage.getItem('selectedImages');
+  if (storedData) {
+    const parsedData =JSON.parse(storedData);
+    generatedImages = parsedData.map(item => new Image(item.name, item.path));
+  }
+}
 
-// // Call retrieveFromLocalStorage when the page loads
-// window.addEventListener('DOMContentLoaded', () => {
-//   retrieveFromLocalStorage(); // Retrieve data from local storage when the page loads
-//   displayImages(); // Display images using the retrieved data
-// });
+// Call retrieveFromLocalStorage when the page loads
+window.addEventListener('DOMContentLoaded', () => {
+  retrieveFromLocalStorage(); // Retrieve data from local storage when the page loads
+  displayImages(); // Display images using the retrieved data
+});
 
 function viewResults() {
   const resultData = generatedImages.map(product => {

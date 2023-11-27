@@ -39,6 +39,8 @@ const wineGlass = new Image('Wine-glass', './img/wine-glass.jpg');
 
 let previousImages = [];
 
+
+
 function getRandomImages() {
   let newImages = [];
 
@@ -55,6 +57,8 @@ function getRandomImages() {
   previousImages = newImages.slice();
   return newImages;
 }
+
+
 
 const resultsSection = document.getElementById('results');
 const imageSection = document.getElementById('images');
@@ -104,9 +108,8 @@ function handleImageClick(event) {
 
 // Function to save data to local storage
 function saveToLocalStorage() {
-  JSON.stringify(selectedImages)
-  localStorage.setItem('selectedImages', JSON.stringify(selectedImages));
-  console.log('code has gotten this far!');
+  localStorage.setItem('generatedImages', JSON.stringify(generatedImages));
+  console.log('Code has gotten this far!');
 }
 
 function disableClicks() {
@@ -117,18 +120,25 @@ function disableClicks() {
 
 // Function to retrieve data from local storage
 function retrieveFromLocalStorage() {
-  const storedData = localStorage.getItem('selectedImages');
+  const storedData = localStorage.getItem('generatedImages');
   if (storedData) {
-    const parsedData =JSON.parse(storedData);
-    generatedImages = parsedData.map(item => new Image(item.name, item.path));
+    generatedImages =JSON.parse(storedData);
   }
 }
 
 // Call retrieveFromLocalStorage when the page loads
 window.addEventListener('DOMContentLoaded', () => {
-  retrieveFromLocalStorage(); // Retrieve data from local storage when the page loads
+  try {
+    retrieveFromLocalStorage(); // Retrieve data from local storage when the page loads
+  } catch {
+
+  } 
   displayImages(); // Display images using the retrieved data
 });
+
+window.addEventListener('beforeunload', function () {
+  saveToLocalStorage();
+})
 
 function viewResults() {
   const resultData = generatedImages.map(product => {
@@ -190,5 +200,3 @@ function disableClicks() {
   resultsSection.appendChild(viewResultsBtn);
   resultsSection.appendChild(document.createElement('br'));
 }
-
-displayImages();

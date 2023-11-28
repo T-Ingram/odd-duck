@@ -6,6 +6,8 @@ I built a webpage that would allow the user to select images and tally the resul
 
 ### Author: Student/Group Name
 
+Trevor Ingram
+
 ### Links and Resources
 
 

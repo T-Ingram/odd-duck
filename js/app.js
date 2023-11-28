@@ -4,8 +4,8 @@ const imagesToDisplay = 3;
 let roundsDisplayed = 25;
 generatedImages = [];
 
+//Constructor 
 class Image {
-
 
   constructor(name, path) {
     // Arguments
@@ -14,7 +14,6 @@ class Image {
     this.timesClicked = 0;
     this.timesShown = 0;
     generatedImages.push(this);
-
   }
 }
 
@@ -37,9 +36,10 @@ const tauntaun = new Image('Tauntaun', './img/tauntaun.jpg');
 const unicorn = new Image('Unicorn', './img/unicorn.jpg');
 const waterCan = new Image('Water-can', './img/water-can.jpg');
 const wineGlass = new Image('Wine-glass', './img/wine-glass.jpg');
-console.log(generatedImages);
 
 let previousImages = [];
+
+
 
 function getRandomImages() {
   let newImages = [];
@@ -57,6 +57,8 @@ function getRandomImages() {
   previousImages = newImages.slice();
   return newImages;
 }
+
+
 
 const resultsSection = document.getElementById('results');
 const imageSection = document.getElementById('images');
@@ -90,7 +92,7 @@ function handleImageClick(event) {
   const foundObject = generatedImages.find(obj => obj.name === targetName);
   // console.log(selectedImages);
   console.log(generatedImages);
-  console.log(foundObject);
+  // console.log(foundObject);
 
   if (roundsDisplayed > 0) {
       foundObject.timesClicked++;
@@ -102,7 +104,12 @@ function handleImageClick(event) {
   }
   selectedImages = [];
   displayImages();
-  console.log(foundObject.timesClicked);
+}
+
+// Function to save data to local storage
+function saveToLocalStorage() {
+  localStorage.setItem('generatedImages', JSON.stringify(generatedImages));
+  console.log('Code has gotten this far!');
 }
 
 function disableClicks() {
@@ -110,6 +117,28 @@ function disableClicks() {
   imageSection.removeEventListener('click', eventListenerFunction);
   viewResults();
 }
+
+// Function to retrieve data from local storage
+function retrieveFromLocalStorage() {
+  const storedData = localStorage.getItem('generatedImages');
+  if (storedData) {
+    generatedImages =JSON.parse(storedData);
+  }
+}
+
+// Call retrieveFromLocalStorage when the page loads
+window.addEventListener('DOMContentLoaded', () => {
+  try {
+    retrieveFromLocalStorage(); // Retrieve data from local storage when the page loads
+  } catch {
+
+  } 
+  displayImages(); // Display images using the retrieved data
+});
+
+window.addEventListener('beforeunload', function () {
+  saveToLocalStorage();
+})
 
 function viewResults() {
   const resultData = generatedImages.map(product => {
@@ -171,5 +200,3 @@ function disableClicks() {
   resultsSection.appendChild(viewResultsBtn);
   resultsSection.appendChild(document.createElement('br'));
 }
-
-displayImages();

@@ -13,7 +13,7 @@ I build an app with a direct and powerful purpose. It does all of the things tha
 
 ### Lighthouse Accessibility Report Score
 
-* Provide a screenshot of your score after running a Lighthouse Accessibility report.
+![Lighthouse Score](https://github.com/T-Ingram/odd-duck/blob/main/img/odd-duck%20lab%2011%20lighthouse%20report.png)
 
 ### Reflections and Comments
 

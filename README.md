@@ -16,3 +16,5 @@ Trevor Ingram
 ![Lighthouse Score](https://github.com/T-Ingram/odd-duck/blob/main/img/odd-duck%20lab%2011%20lighthouse%20report.png)
 
 ### Reflections and Comments
+
+This project demonstrates the use of local storage, chart.js, and event handlers. 

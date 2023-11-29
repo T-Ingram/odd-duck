@@ -40,7 +40,7 @@ const wineGlass = new Image('Wine-glass', './img/wine-glass.jpg');
 let previousImages = [];
 
 
-
+//Random image generator
 function getRandomImages() {
   let newImages = [];
 
@@ -85,17 +85,16 @@ function displayImages() {
   });
 }
 
+//Image click handler
 function handleImageClick(event) {
   event.preventDefault();
 
   const targetName = event.target.alt;
   const foundObject = generatedImages.find(obj => obj.name === targetName);
-  // console.log(selectedImages);
   console.log(generatedImages);
-  // console.log(foundObject);
 
   if (roundsDisplayed > 0) {
-      foundObject.timesClicked++;
+      foundObject.timesClicked++;//Increasing the object times clicked by 1
       roundsDisplayed--; // Decreasing the click limit by 1
       console.log(`Remaining clicks: ${roundsDisplayed}`);
   } else {
@@ -140,6 +139,7 @@ window.addEventListener('beforeunload', function () {
   saveToLocalStorage();
 })
 
+//Chart creation
 function viewResults() {
   const resultData = generatedImages.map(product => {
     return {
